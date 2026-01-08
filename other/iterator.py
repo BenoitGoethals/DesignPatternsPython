@@ -30,11 +30,13 @@ for x in LoopOverEven(10):
 
 import string
 
+
 def abc(word):
     """Generate letters from a word in alphabetical order"""
     for x in string.ascii_lowercase:
         if x in word:
             yield x
+
 
 for x in abc("banana"):
     print(x)
@@ -43,18 +45,19 @@ for x in abc("banana"):
 def multiabc(sentence):
     for word in sentence.split():
         yield from abc(word)
-        yield '----'
+        yield "----"
+
 
 for x in multiabc("banana racecar"):
     print(x)
 
 
-
 def countdown(n):
     while n > 0:
         yield n
-        n -=1
+        n -= 1
     print("Blastoff!")
+
 
 for x in countdown(10):
     print(x)
@@ -72,14 +75,15 @@ mylist = [[1, 2], [3], [4, [5, [6]]]]
 print(list(flatten(mylist)))  # Should return [1, 2, 3, 4, 5, 6]
 
 
-
 def fibonacci(n):
     a, b = 0, 1
     for _ in range(n):
         yield a
         a, b = b, a + b
 
+
 print(list(fibonacci(10)))
+
 
 def my_range(start, stop, step):
     while start < stop:
@@ -87,9 +91,9 @@ def my_range(start, stop, step):
         start += step
 
 
-
 for x in list(my_range(0, 1, 0.1)):  # Should work with floats
     print(x)
+
 
 def sliding_window(seq, n):
     """Yields successive overlapping subsequences of fixed length"""

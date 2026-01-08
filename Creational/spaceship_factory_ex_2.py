@@ -1,10 +1,11 @@
 from dataclasses import dataclass, field
-from typing import Type, Any
+from typing import Any, Type
 
 
 @dataclass
 class SpaceShip:
     """Base class for spaceships."""
+
     name: str
     manufacturer: str
     max_speed: int
@@ -50,7 +51,7 @@ class SpaceshipFactory:
     _registry: dict[str, Type[SpaceShip]] = {
         "Falcon9": Falcon9,
         "Starship": Starship,
-        "Enterprise": Enterprise
+        "Enterprise": Enterprise,
     }
 
     @classmethod
@@ -73,10 +74,7 @@ if __name__ == "__main__":
 
     # Create a unique Starship with custom data
     unique_starship = SpaceshipFactory.create(
-        "Starship",
-        name="Mars Explorer I",
-        crew=500,
-        max_speed=30000
+        "Starship", name="Mars Explorer I", crew=500, max_speed=30000
     )
 
     print(f"Default: {default_falcon}")

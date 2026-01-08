@@ -1,5 +1,6 @@
-#Exercise 1: Recognize Obsolete Patterns
-#For each code snippet, identify if it’s using an obsolete pattern that could be simplified:
+# Exercise 1: Recognize Obsolete Patterns
+# For each code snippet, identify if it’s using an obsolete pattern that could be simplified:
+
 
 # A
 class Circle:

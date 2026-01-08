@@ -20,7 +20,7 @@ class SupportHandler(ABC):
 # Concrete Handlers
 class BasicSupportHandler(SupportHandler):
     def handle(self, request):
-        if request['priority'] == 'laag':
+        if request["priority"] == "laag":
             return f"Basic Support: Probleem '{request['issue']}' is opgelost via FAQ"
         elif self._next_handler:
             return self._next_handler.handle(request)
@@ -29,7 +29,7 @@ class BasicSupportHandler(SupportHandler):
 
 class TechnicalSupportHandler(SupportHandler):
     def handle(self, request):
-        if request['priority'] == 'gemiddeld':
+        if request["priority"] == "gemiddeld":
             return f"Technical Support: Probleem '{request['issue']}' wordt opgelost door technisch team"
         elif self._next_handler:
             return self._next_handler.handle(request)
@@ -38,7 +38,7 @@ class TechnicalSupportHandler(SupportHandler):
 
 class ManagerSupportHandler(SupportHandler):
     def handle(self, request):
-        if request['priority'] == 'hoog':
+        if request["priority"] == "hoog":
             return f"Manager Support: Kritiek probleem '{request['issue']}' wordt direct door manager behandeld"
         elif self._next_handler:
             return self._next_handler.handle(request)
@@ -57,10 +57,10 @@ def main():
 
     # Test verschillende verzoeken
     requests = [
-        {'issue': 'Wachtwoord vergeten', 'priority': 'laag'},
-        {'issue': 'Software crash', 'priority': 'gemiddeld'},
-        {'issue': 'Server down', 'priority': 'hoog'},
-        {'issue': 'Vraag over factuur', 'priority': 'laag'}
+        {"issue": "Wachtwoord vergeten", "priority": "laag"},
+        {"issue": "Software crash", "priority": "gemiddeld"},
+        {"issue": "Server down", "priority": "hoog"},
+        {"issue": "Vraag over factuur", "priority": "laag"},
     ]
 
     print("=== Support Ticket Systeem ===\n")

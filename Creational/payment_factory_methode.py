@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 
+
 class PaymentProvider(ABC):
     @abstractmethod
     def pay(self, amount: float) -> bool:
         pass
+
 
 class CardPayment(PaymentProvider):
     def pay(self, amount: float) -> bool:
@@ -36,12 +38,12 @@ class PaymentFactory:
             raise ValueError(f"Unsupported payment method: {method}")
 
 
-
 class PaymentRequest:
     pay_type: str
     amount: float
 
-#@app.post("/pay")
+
+# @app.post("/pay")
 def pay(request: PaymentRequest):
     provider = PaymentFactory.create(request.pay_type)
     provider.pay(request.amount)

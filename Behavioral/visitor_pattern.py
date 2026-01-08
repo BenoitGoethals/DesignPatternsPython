@@ -1,20 +1,16 @@
-from typing import Protocol
 from abc import ABC, abstractmethod
+from typing import Protocol
 
 
 # Visitor Protocol
 class DocumentVisitor(Protocol):
-    def visit_paragraph(self, paragraph: 'Paragraph') -> None:
-        ...
+    def visit_paragraph(self, paragraph: "Paragraph") -> None: ...
 
-    def visit_heading(self, heading: 'Heading') -> None:
-        ...
+    def visit_heading(self, heading: "Heading") -> None: ...
 
-    def visit_image(self, image: 'Image') -> None:
-        ...
+    def visit_image(self, image: "Image") -> None: ...
 
-    def visit_table(self, table: 'Table') -> None:
-        ...
+    def visit_table(self, table: "Table") -> None: ...
 
 
 # Element interface
@@ -207,19 +203,33 @@ if __name__ == "__main__":
     doc = Document("Mijn Artikel")
 
     doc.add_element(Heading("Introductie", 1))
-    doc.add_element(Paragraph("Dit is een voorbeeld document om het Visitor pattern te demonstreren."))
-    doc.add_element(Paragraph("Het Visitor pattern is handig voor het scheiden van operaties van objecten."))
+    doc.add_element(
+        Paragraph(
+            "Dit is een voorbeeld document om het Visitor pattern te demonstreren."
+        )
+    )
+    doc.add_element(
+        Paragraph(
+            "Het Visitor pattern is handig voor het scheiden van operaties van objecten."
+        )
+    )
 
     doc.add_element(Heading("Voorbeelden", 2))
     doc.add_element(Image("https://example.com/diagram.png", "UML Diagram"))
 
     doc.add_element(Heading("Data", 2))
-    doc.add_element(Table(3, 2, [
-        ["Pattern", "Type"],
-        ["Visitor", "Behavioral"],
-        ["Command", "Behavioral"],
-        ["Memento", "Behavioral"]
-    ]))
+    doc.add_element(
+        Table(
+            3,
+            2,
+            [
+                ["Pattern", "Type"],
+                ["Visitor", "Behavioral"],
+                ["Command", "Behavioral"],
+                ["Memento", "Behavioral"],
+            ],
+        )
+    )
 
     # Pas verschillende visitors toe
     print("=" * 60)

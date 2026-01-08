@@ -1,5 +1,6 @@
 from typing import Protocol
 
+
 class Subject:
     def __init__(self):
         self._observers = []
@@ -26,18 +27,18 @@ class Subject:
         self.notify()
 
 
-class Observer( Protocol):
-    def update(self, sub:Subject):
+class Observer(Protocol):
+    def update(self, sub: Subject):
         pass
 
 
 class ConcreteObserverA(Observer):
-    def update(self, sub:Subject):
+    def update(self, sub: Subject):
         print(f"ObserverA: Reacted to state change -> {sub.state}")
 
 
 class ConcreteObserverB(Observer):
-    def update(self, sub:Subject):
+    def update(self, sub: Subject):
         print(f"ObserverB: Received update -> {sub.state}")
 
 

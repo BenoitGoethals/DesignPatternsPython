@@ -19,7 +19,6 @@ class SequenceGenerator:
         return self.__number
 
 
-
 one = SequenceGenerator().get_next_number()
 two = SequenceGenerator().get_next_number()
 three = SequenceGenerator().get_next_number()

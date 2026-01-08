@@ -3,11 +3,9 @@ from typing import Protocol
 
 # Command Protocol
 class Command(Protocol):
-    def execute(self) -> None:
-        ...
+    def execute(self) -> None: ...
 
-    def undo(self) -> None:
-        ...
+    def undo(self) -> None: ...
 
 
 # Receiver - de Teksteditor
@@ -21,15 +19,15 @@ class TextEditor:
         print(f"Huidige tekst: '{self.text}'")
 
     def delete(self, position: int, length: int) -> str:
-        deleted = self.text[position:position + length]
-        self.text = self.text[:position] + self.text[position + length:]
+        deleted = self.text[position : position + length]
+        self.text = self.text[:position] + self.text[position + length :]
         print(f"Tekst verwijderd: '{deleted}'")
         print(f"Huidige tekst: '{self.text}'")
         return deleted
 
     def replace(self, position: int, length: int, new_text: str) -> str:
-        old_text = self.text[position:position + length]
-        self.text = self.text[:position] + new_text + self.text[position + length:]
+        old_text = self.text[position : position + length]
+        self.text = self.text[:position] + new_text + self.text[position + length :]
         print(f"Tekst vervangen: '{old_text}' -> '{new_text}'")
         print(f"Huidige tekst: '{self.text}'")
         return old_text
@@ -158,11 +156,13 @@ if __name__ == "__main__":
     manager.undo()  # Undo delete
 
     print("\n=== Macro Command ===")
-    macro = MacroCommand([
-        DeleteCommand(editor, 0, 5),  # Verwijder "Hello"
-        InsertCommand(editor, 0, "Goodbye"),  # Voeg "Goodbye" toe
-        InsertCommand(editor, 7, " cruel")  # Voeg " cruel" toe
-    ])
+    macro = MacroCommand(
+        [
+            DeleteCommand(editor, 0, 5),  # Verwijder "Hello"
+            InsertCommand(editor, 0, "Goodbye"),  # Voeg "Goodbye" toe
+            InsertCommand(editor, 7, " cruel"),  # Voeg " cruel" toe
+        ]
+    )
     manager.execute(macro)
 
     print("\n=== Undo Macro ===")

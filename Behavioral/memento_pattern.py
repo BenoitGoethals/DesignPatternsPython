@@ -1,12 +1,13 @@
-from typing import Protocol
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Protocol
 
 
 # Memento - slaat de state op
 @dataclass
 class EditorMemento:
     """Immutable snapshot van de editor state"""
+
     text: str
     cursor_position: int
     timestamp: datetime
@@ -35,9 +36,11 @@ class TextEditor:
 
     def type(self, content: str) -> None:
         """Type tekst op huidige cursor positie"""
-        self.text = (self.text[:self.cursor_position] +
-                     content +
-                     self.text[self.cursor_position:])
+        self.text = (
+            self.text[: self.cursor_position]
+            + content
+            + self.text[self.cursor_position :]
+        )
         self.cursor_position += len(content)
         print(f"✎ Getypt: '{content}'")
         self._print_state()
@@ -45,8 +48,8 @@ class TextEditor:
     def delete(self, length: int) -> None:
         """Verwijder tekst voor de cursor"""
         start = max(0, self.cursor_position - length)
-        deleted = self.text[start:self.cursor_position]
-        self.text = self.text[:start] + self.text[self.cursor_position:]
+        deleted = self.text[start : self.cursor_position]
+        self.text = self.text[:start] + self.text[self.cursor_position :]
         self.cursor_position = start
         print(f"⌫ Verwijderd: '{deleted}'")
         self._print_state()
@@ -62,7 +65,7 @@ class TextEditor:
         return EditorMemento(
             text=self.text,
             cursor_position=self.cursor_position,
-            timestamp=datetime.now()
+            timestamp=datetime.now(),
         )
 
     def restore(self, memento: EditorMemento) -> None:
@@ -89,7 +92,7 @@ class EditorHistory:
     def save_checkpoint(self) -> None:
         """Sla huidige state op als checkpoint"""
         # Verwijder alle states na huidige index (voor nieuwe branch)
-        self.history = self.history[:self.current_index + 1]
+        self.history = self.history[: self.current_index + 1]
 
         memento = self.editor.save()
         self.history.append(memento)

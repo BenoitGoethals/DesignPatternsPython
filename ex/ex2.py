@@ -5,7 +5,7 @@ from typing import Protocol
 
 class Menu(Protocol):
 
-    def get_price(self)->Decimal:
+    def get_price(self) -> Decimal:
         pass
 
     def describe(self) -> str:
@@ -47,7 +47,6 @@ if __name__ == "__main__":
     menu.add(item1)
     item2 = MenuItem("asdsa", Decimal(10))
     menu.add(item2)
-    
+
     print(menu.describe())
     print(menu.get_price())
-

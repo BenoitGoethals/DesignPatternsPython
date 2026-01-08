@@ -5,9 +5,11 @@ class Strategy(Protocol):
     def execute(self):
         pass
 
+
 class ConcreteStrategyA(Strategy):
     def execute(self):
         print("Strategy A executed")
+
 
 class ConcreteStrategyB(Strategy):
     def execute(self):
@@ -20,4 +22,3 @@ if __name__ == "__main__":
 
     strategy = ConcreteStrategyB()
     strategy.execute()
-    

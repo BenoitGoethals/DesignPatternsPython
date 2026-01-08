@@ -6,6 +6,7 @@ class Singleton(type):
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
 
+
 class DbConnection(metaclass=Singleton):
     def __init__(self):
         self._connection = "Connected to DB"
@@ -13,9 +14,11 @@ class DbConnection(metaclass=Singleton):
     @property
     def connection(self):
         return self._connection
+
     @connection.setter
     def connection(self, value):
         self._connection = value
+
 
 dn1 = DbConnection()
 dn1.connection = "Connected to DB2"
@@ -25,4 +28,3 @@ print(dn1 is dn2)
 
 print(dn1.connection)
 print(dn2.connection)
-

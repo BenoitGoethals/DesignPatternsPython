@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class DeploymentConfig:
     name: str
@@ -65,16 +66,15 @@ class DeploymentConfigBuilder:
             min_replicas=self._min_replicas,
             max_replicas=self._max_replicas,
             env=self._env,
-            secrets=self._secrets
+            secrets=self._secrets,
         )
 
 
 config = (
     DeploymentConfigBuilder("api-service", "api:1.2")
-        .with_resources(cpu=2, memory=4096)
-        .enable_autoscaling(min_r=2, max_r=10)
-        .with_env("ENV", "prod")
-        .with_secret("DB_PASSWORD")
-        .build()
+    .with_resources(cpu=2, memory=4096)
+    .enable_autoscaling(min_r=2, max_r=10)
+    .with_env("ENV", "prod")
+    .with_secret("DB_PASSWORD")
+    .build()
 )
-

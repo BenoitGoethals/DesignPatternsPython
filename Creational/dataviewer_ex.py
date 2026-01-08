@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Connection
 from typing import Callable
 
+
 class DataViewer:
     def __init__(self, filename: str, factory: Callable[[str], Connection]):
         self.connection = factory(filename)

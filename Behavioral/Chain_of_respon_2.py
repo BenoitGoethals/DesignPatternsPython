@@ -47,15 +47,15 @@ class DataHandler(ABC):
 # Validatie Handlers
 class EmailValidationHandler(DataHandler):
     def process(self, user_data: UserData):
-        email = user_data.data.get('email', '')
-        if '@' not in email or '.' not in email:
+        email = user_data.data.get("email", "")
+        if "@" not in email or "." not in email:
             user_data.add_error("Ongeldig email adres")
         print(f"✓ Email validatie uitgevoerd")
 
 
 class AgeValidationHandler(DataHandler):
     def process(self, user_data: UserData):
-        age = user_data.data.get('age', 0)
+        age = user_data.data.get("age", 0)
         if age < 18:
             user_data.add_error("Gebruiker moet minimaal 18 jaar zijn")
         elif age > 120:
@@ -66,30 +66,30 @@ class AgeValidationHandler(DataHandler):
 # Transformatie Handlers
 class NameNormalizationHandler(DataHandler):
     def process(self, user_data: UserData):
-        if 'name' in user_data.data:
+        if "name" in user_data.data:
             # Transformeer naam naar Title Case
-            user_data.data['name'] = user_data.data['name'].strip().title()
+            user_data.data["name"] = user_data.data["name"].strip().title()
             print(f"✓ Naam genormaliseerd naar: {user_data.data['name']}")
 
 
 class EmailNormalizationHandler(DataHandler):
     def process(self, user_data: UserData):
-        if 'email' in user_data.data:
+        if "email" in user_data.data:
             # Transformeer email naar lowercase
-            user_data.data['email'] = user_data.data['email'].strip().lower()
+            user_data.data["email"] = user_data.data["email"].strip().lower()
             print(f"✓ Email genormaliseerd naar: {user_data.data['email']}")
 
 
 class DataEnrichmentHandler(DataHandler):
     def process(self, user_data: UserData):
         # Voeg extra informatie toe
-        age = user_data.data.get('age', 0)
+        age = user_data.data.get("age", 0)
         if age >= 18:
-            user_data.data['category'] = 'volwassene'
+            user_data.data["category"] = "volwassene"
         else:
-            user_data.data['category'] = 'minderjarige'
+            user_data.data["category"] = "minderjarige"
 
-        user_data.data['processed'] = True
+        user_data.data["processed"] = True
         print(f"✓ Data verrijkt met category: {user_data.data['category']}")
 
 
@@ -97,16 +97,15 @@ class DataEnrichmentHandler(DataHandler):
 def main():
     # Bouw de verwerkingsketen
     chain = EmailValidationHandler()
-    chain.set_next(AgeValidationHandler()) \
-        .set_next(NameNormalizationHandler()) \
-        .set_next(EmailNormalizationHandler()) \
-        .set_next(DataEnrichmentHandler())
+    chain.set_next(AgeValidationHandler()).set_next(
+        NameNormalizationHandler()
+    ).set_next(EmailNormalizationHandler()).set_next(DataEnrichmentHandler())
 
     # Test verschillende gebruikers
     test_users = [
-        {'name': 'jan de vries', 'email': 'JAN@EXAMPLE.COM', 'age': 25},
-        {'name': 'MARIA JANSEN', 'email': 'maria.example.com', 'age': 30},
-        {'name': 'piet bakker', 'email': 'piet@test.nl', 'age': 15}
+        {"name": "jan de vries", "email": "JAN@EXAMPLE.COM", "age": 25},
+        {"name": "MARIA JANSEN", "email": "maria.example.com", "age": 30},
+        {"name": "piet bakker", "email": "piet@test.nl", "age": 15},
     ]
 
     print("=== Data Verwerkingsketen ===\n")
