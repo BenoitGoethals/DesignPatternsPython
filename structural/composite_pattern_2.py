@@ -143,5 +143,7 @@ if __name__ == "__main__":
     print("\n=== UNIFORME BEHANDELING ===")
     employees = [dev1, dev_manager, cto]
     for emp in employees:
-        print(f"{emp.name}: verantwoordelijk voor {emp.count_employees()} personen, "
-              f"salariskosten: €{emp.get_total_salary():,.2f}")
+        print(
+            f"{emp.name}: verantwoordelijk voor {emp.count_employees()} personen, "
+            f"salariskosten: €{emp.get_total_salary():,.2f}"
+        )

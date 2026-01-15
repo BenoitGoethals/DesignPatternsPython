@@ -8,10 +8,8 @@ class PlotBuilder:
         self._xlabel = None
         self._ylabel = None
         self._figsize = (8, 6)
-        self._style = 'default'
+        self._style = "default"
         self._gird: bool = False
-
-
 
     def add_line(self, x, y, label=None):
         """Add a line to the plot"""
@@ -76,11 +74,13 @@ class PlotBuilder:
         """Build and display the plot"""
         self.build()
         import matplotlib.pyplot as plt
+
         plt.show()
 
     def save(self, filename: str):
         self.build()
         import matplotlib.pyplot as plt
+
         plt.savefig(filename)
 
 
@@ -99,10 +99,12 @@ print("Plot configured successfully!")
 # plot.show()  # Uncomment to display
 
 if __name__ == "__main__":
-    (PlotBuilder()
-     .title("Data Visualization")
-     .grid(True)
-     .style('ggplot')
-     .add_scatter([1, 2, 3], [2, 4, 6], label="Data A")
-     .add_line([1, 2, 3], [3, 3, 3], label="Average")
-     .save("plot.png"))
+    (
+        PlotBuilder()
+        .title("Data Visualization")
+        .grid(True)
+        .style("ggplot")
+        .add_scatter([1, 2, 3], [2, 4, 6], label="Data A")
+        .add_line([1, 2, 3], [3, 3, 3], label="Average")
+        .save("plot.png")
+    )

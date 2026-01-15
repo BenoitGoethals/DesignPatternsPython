@@ -1,15 +1,20 @@
 from typing import Protocol
+
+
 class Report(Protocol):
-    def generate(self)->str:
+    def generate(self) -> str:
         pass
+
 
 class PdfReport(Report):
     def generate(self):
         return "PDF rapport"
 
+
 class HtmlReport(Report):
     def generate(self):
         return "HTML rapport"
+
 
 class ReportFactory:
     @staticmethod
@@ -35,12 +40,11 @@ class Creator(Protocol):
         report_gen = self.factory_method()
         return report_gen.generate()
 
+
 class PdfCreator(Creator):
     def factory_method(self):
         return PdfReport()
 
+
 pc_creator = PdfCreator()
 print(pc_creator.do_something())
-
-
-

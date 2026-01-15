@@ -1,8 +1,8 @@
 class CharacterFlyweight:
     def __init__(self, char, font, size):
-        self.char = char      # intrinsic
-        self.font = font      # intrinsic
-        self.size = size      # intrinsic
+        self.char = char  # intrinsic
+        self.font = font  # intrinsic
+        self.size = size  # intrinsic
 
     def render(self, position):
         print(f"{self.char} op {position}")
@@ -40,11 +40,11 @@ class VehicleFactory:
     def get_vehicle_type(cls, name):
         if name not in cls._types:
             cls._types[name] = VehicleType(
-                name=name,
-                icon_path=f"{name}.png",
-                max_payload=5000
+                name=name, icon_path=f"{name}.png", max_payload=5000
             )
         return cls._types[name]
+
+
 class Vehicle:
     def __init__(self, vehicle_type, position, fuel):
         self.vehicle_type = vehicle_type

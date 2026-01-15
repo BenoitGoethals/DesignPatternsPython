@@ -41,7 +41,7 @@ class XMLDataSource:
     def parse_xml(self):
         """Parse XML en retourneer raw XML elementen"""
         root = ET.fromstring(self.xml_string)
-        return root.findall('product')
+        return root.findall("product")
 
 
 # Adapter 1: XML naar Product lijst
@@ -58,10 +58,10 @@ class XMLAdapter(DataProvider):
 
         for xml_product in xml_products:
             product = Product(
-                id=int(xml_product.find('id').text),
-                name=xml_product.find('name').text,
-                price=float(xml_product.find('price').text),
-                category=xml_product.find('category').text
+                id=int(xml_product.find("id").text),
+                name=xml_product.find("name").text,
+                price=float(xml_product.find("price").text),
+                category=xml_product.find("category").text,
             )
             products.append(product)
 
@@ -78,7 +78,7 @@ class JSONDataSource:
     def get_json_data(self):
         """Parse JSON en retourneer raw Python dictionaries"""
         data = json.loads(self.json_string)
-        return data['items']
+        return data["items"]
 
 
 # Adapter 2: JSON naar Product lijst
@@ -95,10 +95,10 @@ class JSONAdapter(DataProvider):
 
         for item in json_items:
             product = Product(
-                id=item['product_id'],
-                name=item['product_name'],
-                price=item['unit_price'],
-                category=item['product_category']
+                id=item["product_id"],
+                name=item["product_name"],
+                price=item["unit_price"],
+                category=item["product_category"],
             )
             products.append(product)
 

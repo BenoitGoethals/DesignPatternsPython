@@ -42,12 +42,14 @@ class User:
         return self._email_address
 
     def __str__(self):
-        return (f"User(firstName='{self.first_name}', "
-                f"lastname='{self.lastname}', "
-                f"age={self.age}, "
-                f"phoneNumber='{self.phone_number}', "
-                f"address='{self.address}', "
-                f"emailAddress='{self.email_address}')")
+        return (
+            f"User(firstName='{self.first_name}', "
+            f"lastname='{self.lastname}', "
+            f"age={self.age}, "
+            f"phoneNumber='{self.phone_number}', "
+            f"address='{self.address}', "
+            f"emailAddress='{self.email_address}')"
+        )
 
     def __repr__(self):
         return self.__str__()
@@ -117,36 +119,42 @@ class UserBuilder:
 # Example usage
 if __name__ == "__main__":
     print("=== Example 1: User with all fields ===")
-    user1 = (UserBuilder()
-             .set_first_name("John")
-             .set_lastname("Doe")
-             .set_email_address("john.doe@example.com")
-             .set_age(30)
-             .set_phone_number("+1-555-1234")
-             .set_address("123 Main St, New York, NY")
-             .build())
+    user1 = (
+        UserBuilder()
+        .set_first_name("John")
+        .set_lastname("Doe")
+        .set_email_address("john.doe@example.com")
+        .set_age(30)
+        .set_phone_number("+1-555-1234")
+        .set_address("123 Main St, New York, NY")
+        .build()
+    )
 
     print(user1)
     print(f"First Name: {user1.first_name}")
     print(f"Email: {user1.email_address}")
 
     print("\n=== Example 2: User with only required fields ===")
-    user2 = (UserBuilder()
-             .set_first_name("Jane")
-             .set_lastname("Smith")
-             .set_email_address("jane.smith@example.com")
-             .build())
+    user2 = (
+        UserBuilder()
+        .set_first_name("Jane")
+        .set_lastname("Smith")
+        .set_email_address("jane.smith@example.com")
+        .build()
+    )
 
     print(user2)
 
     print("\n=== Example 3: User with some optional fields ===")
-    user3 = (UserBuilder()
-             .set_first_name("Bob")
-             .set_lastname("Johnson")
-             .set_email_address("bob.j@example.com")
-             .set_age(25)
-             .set_phone_number("+1-555-5678")
-             .build())
+    user3 = (
+        UserBuilder()
+        .set_first_name("Bob")
+        .set_lastname("Johnson")
+        .set_email_address("bob.j@example.com")
+        .set_age(25)
+        .set_phone_number("+1-555-5678")
+        .build()
+    )
 
     print(user3)
 
@@ -159,8 +167,8 @@ if __name__ == "__main__":
 
     print("\n=== Example 5: Testing validation (missing required field) ===")
     try:
-        invalid_user = (UserBuilder()
-                        .set_first_name("Test")
-                        .build())  # Missing lastname and email
+        invalid_user = (
+            UserBuilder().set_first_name("Test").build()
+        )  # Missing lastname and email
     except ValueError as e:
         print(f"✓ Validation works: {e}")

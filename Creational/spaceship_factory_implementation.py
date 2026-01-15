@@ -1,10 +1,11 @@
 from dataclasses import dataclass
-from typing import Callable, Any
+from typing import Any, Callable
 
 
 @dataclass
 class SpaceShip:
     """Base class for spaceships."""
+
     name: str
     manufacturer: str
     max_speed: int
@@ -46,12 +47,12 @@ class Enterprise(SpaceShip):
 
 class SpaceshipFactory:
     """A factory using a registry of Callables to produce unique instances."""
-    
+
     # Registry maps strings to the Class (which is a Callable)
     _registry: dict[str, Callable[..., SpaceShip]] = {
         "Falcon9": Falcon9,
         "Starship": Starship,
-        "Enterprise": Enterprise
+        "Enterprise": Enterprise,
     }
 
     @classmethod
@@ -60,7 +61,7 @@ class SpaceshipFactory:
         creator = cls._registry.get(spaceship_type)
         if not creator:
             raise ValueError(f"Unknown spaceship type: {spaceship_type}")
-        
+
         # Calling the class/callable creates a brand new unique instance
         return creator(**kwargs)
 
@@ -68,17 +69,12 @@ class SpaceshipFactory:
 if __name__ == "__main__":
     # Create a unique Starship instance with custom data
     my_starship = SpaceshipFactory.create(
-        "Starship", 
-        name="Starship SN15", 
-        crew=12, 
-        max_speed=26000
+        "Starship", name="Starship SN15", crew=12, max_speed=26000
     )
-    
+
     # Create another Starship with different data
     another_starship = SpaceshipFactory.create(
-        "Starship", 
-        name="Mars Colony Transporter", 
-        crew=100
+        "Starship", name="Mars Colony Transporter", crew=100
     )
 
     print(my_starship)

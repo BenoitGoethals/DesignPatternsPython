@@ -6,6 +6,7 @@ class ThreadSafeSingleton:
     A thread-safe singleton implementation.
     Only one instance of this class can exist.
     """
+
     # Class-level variable to store the single instance
     _instance = None
 
@@ -51,11 +52,9 @@ if __name__ == "__main__":
     # Test with multiple threads
     instances = []
 
-
     def create_instance():
         instance = ThreadSafeSingleton()
         instances.append(instance)
-
 
     threads = [threading.Thread(target=create_instance) for _ in range(10)]
 
@@ -66,4 +65,6 @@ if __name__ == "__main__":
         thread.join()
 
     # Verify all instances are the same
-    print(f"\nAll instances from threads are identical: {all(inst is instances[0] for inst in instances)}")
+    print(
+        f"\nAll instances from threads are identical: {all(inst is instances[0] for inst in instances)}"
+    )

@@ -7,7 +7,7 @@ class SequenceGenerator:
 
     def __init__(self):
         # This check prevents re-initializing the counter if __init__ is called again
-        if not hasattr(self, '_SequenceGenerator__number'):
+        if not hasattr(self, "_SequenceGenerator__number"):
             self.__number = 0
 
     @classmethod

@@ -3,17 +3,13 @@ from typing import Protocol
 
 # State Protocol
 class VendingMachineState(Protocol):
-    def insert_money(self, machine: 'VendingMachine', amount: int) -> None:
-        ...
+    def insert_money(self, machine: "VendingMachine", amount: int) -> None: ...
 
-    def select_product(self, machine: 'VendingMachine', product: str) -> None:
-        ...
+    def select_product(self, machine: "VendingMachine", product: str) -> None: ...
 
-    def dispense(self, machine: 'VendingMachine') -> None:
-        ...
+    def dispense(self, machine: "VendingMachine") -> None: ...
 
-    def cancel(self, machine: 'VendingMachine') -> None:
-        ...
+    def cancel(self, machine: "VendingMachine") -> None: ...
 
 
 # Context - de Frisdrankenautomaat
@@ -24,7 +20,7 @@ class VendingMachine:
         self.inventory = {
             "Cola": {"price": 250, "stock": 5},
             "Water": {"price": 150, "stock": 3},
-            "Sap": {"price": 200, "stock": 0}  # Uitverkocht
+            "Sap": {"price": 200, "stock": 0},  # Uitverkocht
         }
         # Start in NoMoney state
         self._state: VendingMachineState = NoMoneyState()
@@ -65,7 +61,7 @@ class VendingMachine:
         """Toon beschikbare producten"""
         print("\n📋 Beschikbare producten:")
         for product, info in self.inventory.items():
-            status = f"{info['stock']} stuks" if info['stock'] > 0 else "UITVERKOCHT"
+            status = f"{info['stock']} stuks" if info["stock"] > 0 else "UITVERKOCHT"
             print(f"   • {product}: {info['price']} cent ({status})")
 
 

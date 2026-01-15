@@ -6,14 +6,11 @@ from typing import List, Protocol, runtime_checkable
 class Aircraft(Protocol):
     callsign: str
 
-    def receive_message(self, message: str) -> None:
-        ...
+    def receive_message(self, message: str) -> None: ...
 
-    def request_landing(self) -> None:
-        ...
+    def request_landing(self) -> None: ...
 
-    def request_takeoff(self) -> None:
-        ...
+    def request_takeoff(self) -> None: ...
 
 
 # Mediator Interface
@@ -22,18 +19,14 @@ class AirTrafficControl(Protocol):
     def register_aircraft(self, aircraft: Aircraft):
         pass
 
-
     def request_landing(self, aircraft):
         pass
-
 
     def request_takeoff(self, aircraft):
         pass
 
-
     def send_emergency_alert(self, aircraft, message):
         pass
-
 
     def request_runway_status(self, aircraft):
         pass
@@ -46,7 +39,7 @@ class AirTrafficControl(Protocol):
 class ControlTower(AirTrafficControl):
     def __init__(self, name: str):
         self.name = name
-        self.aircraft: List['Aircraft'] = []
+        self.aircraft: List["Aircraft"] = []
         self.runway_occupied = False
         self.runway_occupied_by = None
 
@@ -58,37 +51,50 @@ class ControlTower(AirTrafficControl):
         print(f"\n[{self.name}] 📻 {aircraft.callsign} vraagt toestemming om te landen")
 
         if self.runway_occupied:
-            print(f"[{self.name}] 🚫 {aircraft.callsign}, landingsbaan bezet door {self.runway_occupied_by.callsign}")
+            print(
+                f"[{self.name}] 🚫 {aircraft.callsign}, landingsbaan bezet door {self.runway_occupied_by.callsign}"
+            )
             print(f"[{self.name}] 🔄 {aircraft.callsign}, blijf in wachtpatroon")
             aircraft.receive_message(f"Wacht in de lucht, landingsbaan bezet")
         else:
             self.runway_occupied = True
             self.runway_occupied_by = aircraft
-            print(f"[{self.name}] ✅ {aircraft.callsign}, toestemming verleend om te landen op baan 24R")
+            print(
+                f"[{self.name}] ✅ {aircraft.callsign}, toestemming verleend om te landen op baan 24R"
+            )
             aircraft.receive_message(f"Toestemming verleend voor landing")
 
             # Notificeer andere vliegtuigen
             for other_aircraft in self.aircraft:
                 if other_aircraft != aircraft:
-                    other_aircraft.receive_message(f"{aircraft.callsign} is aan het landen")
+                    other_aircraft.receive_message(
+                        f"{aircraft.callsign} is aan het landen"
+                    )
 
     def request_takeoff(self, aircraft):
-        print(f"\n[{self.name}] 📻 {aircraft.callsign} vraagt toestemming om op te stijgen")
+        print(
+            f"\n[{self.name}] 📻 {aircraft.callsign} vraagt toestemming om op te stijgen"
+        )
 
         if self.runway_occupied:
             print(
-                f"[{self.name}] 🚫 {aircraft.callsign}, wacht. Landingsbaan bezet door {self.runway_occupied_by.callsign}")
+                f"[{self.name}] 🚫 {aircraft.callsign}, wacht. Landingsbaan bezet door {self.runway_occupied_by.callsign}"
+            )
             aircraft.receive_message(f"Wacht op taxibaan, landingsbaan bezet")
         else:
             self.runway_occupied = True
             self.runway_occupied_by = aircraft
-            print(f"[{self.name}] ✅ {aircraft.callsign}, toestemming verleend om op te stijgen, baan 24R")
+            print(
+                f"[{self.name}] ✅ {aircraft.callsign}, toestemming verleend om op te stijgen, baan 24R"
+            )
             aircraft.receive_message(f"Toestemming verleend voor opstijgen")
 
             # Notificeer andere vliegtuigen
             for other_aircraft in self.aircraft:
                 if other_aircraft != aircraft:
-                    other_aircraft.receive_message(f"{aircraft.callsign} is aan het opstijgen")
+                    other_aircraft.receive_message(
+                        f"{aircraft.callsign} is aan het opstijgen"
+                    )
 
     def runway_cleared(self, aircraft):
         if self.runway_occupied_by == aircraft:
@@ -98,7 +104,9 @@ class ControlTower(AirTrafficControl):
 
     def send_emergency_alert(self, aircraft, message):
         print(f"\n[{self.name}] 🚨 NOODMELDING van {aircraft.callsign}: {message}")
-        print(f"[{self.name}] 🚨 Alle verkeer wijken! Prioriteit aan {aircraft.callsign}")
+        print(
+            f"[{self.name}] 🚨 Alle verkeer wijken! Prioriteit aan {aircraft.callsign}"
+        )
 
         # Bevrijdt de landingsbaan onmiddellijk
         self.runway_occupied = False
@@ -108,14 +116,21 @@ class ControlTower(AirTrafficControl):
         for other_aircraft in self.aircraft:
             if other_aircraft != aircraft:
                 other_aircraft.receive_message(
-                    f"NOODMELDING: {aircraft.callsign} - {message}. Blijf weg van landingsbaan!")
+                    f"NOODMELDING: {aircraft.callsign} - {message}. Blijf weg van landingsbaan!"
+                )
 
-        aircraft.receive_message("Prioriteit verleend, direct toestemming voor noodlanding")
+        aircraft.receive_message(
+            "Prioriteit verleend, direct toestemming voor noodlanding"
+        )
 
     def request_runway_status(self, aircraft):
         status = "bezet" if self.runway_occupied else "vrij"
-        occupied_by = f" door {self.runway_occupied_by.callsign}" if self.runway_occupied else ""
-        print(f"[{self.name}] 📊 {aircraft.callsign}, landingsbaan is {status}{occupied_by}")
+        occupied_by = (
+            f" door {self.runway_occupied_by.callsign}" if self.runway_occupied else ""
+        )
+        print(
+            f"[{self.name}] 📊 {aircraft.callsign}, landingsbaan is {status}{occupied_by}"
+        )
         aircraft.receive_message(f"Landingsbaan status: {status}{occupied_by}")
 
 
@@ -140,16 +155,22 @@ class Aircraft(ABC):
 
 # Concrete Colleagues
 class PassengerAircraft(Aircraft):
-    def __init__(self, callsign: str, control_tower: AirTrafficControl, passengers: int):
+    def __init__(
+        self, callsign: str, control_tower: AirTrafficControl, passengers: int
+    ):
         super().__init__(callsign, control_tower)
         self.passengers = passengers
 
     def request_landing(self):
-        print(f"\n[{self.callsign}] Passagiersvliegtuig met {self.passengers} passagiers vraagt landing aan")
+        print(
+            f"\n[{self.callsign}] Passagiersvliegtuig met {self.passengers} passagiers vraagt landing aan"
+        )
         self.control_tower.request_landing(self)
 
     def request_takeoff(self):
-        print(f"\n[{self.callsign}] Passagiersvliegtuig met {self.passengers} passagiers vraagt opstijgen aan")
+        print(
+            f"\n[{self.callsign}] Passagiersvliegtuig met {self.passengers} passagiers vraagt opstijgen aan"
+        )
         self.control_tower.request_takeoff(self)
 
     def landing_completed(self):
@@ -162,16 +183,22 @@ class PassengerAircraft(Aircraft):
 
 
 class CargoAircraft(Aircraft):
-    def __init__(self, callsign: str, control_tower: AirTrafficControl, cargo_weight: float):
+    def __init__(
+        self, callsign: str, control_tower: AirTrafficControl, cargo_weight: float
+    ):
         super().__init__(callsign, control_tower)
         self.cargo_weight = cargo_weight
 
     def request_landing(self):
-        print(f"\n[{self.callsign}] Vrachtvliegtuig ({self.cargo_weight} ton) vraagt landing aan")
+        print(
+            f"\n[{self.callsign}] Vrachtvliegtuig ({self.cargo_weight} ton) vraagt landing aan"
+        )
         self.control_tower.request_landing(self)
 
     def request_takeoff(self):
-        print(f"\n[{self.callsign}] Vrachtvliegtuig ({self.cargo_weight} ton) vraagt opstijgen aan")
+        print(
+            f"\n[{self.callsign}] Vrachtvliegtuig ({self.cargo_weight} ton) vraagt opstijgen aan"
+        )
         self.control_tower.request_takeoff(self)
 
     def landing_completed(self):

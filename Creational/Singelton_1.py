@@ -7,7 +7,7 @@ class Singleton:
         return cls._instance
 
     def __init__(self):
-        if not hasattr(self, 'initialized'):
+        if not hasattr(self, "initialized"):
             self.data = []
             self.initialized = True
 

@@ -1,15 +1,13 @@
 # Exercise 4: File System Composite
-from typing import Protocol, List
+from typing import List, Protocol
 
 
 class IFile(Protocol):
     name: str
 
-    def get_size(self) -> int:
-        ...
+    def get_size(self) -> int: ...
 
-    def list_contents(self, indent: int = 0) -> str:
-        ...
+    def list_contents(self, indent: int = 0) -> str: ...
 
 
 class File(IFile):
