@@ -11,13 +11,24 @@ def debugme(func):
 
 
 def counter(func):
+    """Count the number of times a function is called."""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         wrapper.calls += 1
         print(f"Function {func.__name__} has been called {wrapper.calls} times")
         return func(*args, **kwargs)
-
     wrapper.calls = 0
+    return wrapper
+
+def counter_safe(func):
+    """Count the number of times a function is called."""
+    times_called = 0
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        nonlocal times_called
+        times_called += 1
+        print(f"Function {func.__name__} has been called {times_called} times")
+        return func(*args, **kwargs)
     return wrapper
 
 
@@ -39,6 +50,7 @@ def time(func):
 
 @time
 @counter
+@counter_safe
 @debugme
 def testcase(x="sdfdsfs", y="sfdsf", zip=2):
     print(x + y + str(zip))

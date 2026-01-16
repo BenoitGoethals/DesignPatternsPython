@@ -70,10 +70,12 @@ def flatten(nested_list):
         else:
             yield item
 
-
+print("flattening:")
 mylist = [[1, 2], [3], [4, [5, [6]]]]
 print(list(flatten(mylist)))  # Should return [1, 2, 3, 4, 5, 6]
 
+
+print("--------------")
 
 def fibonacci(n):
     a, b = 0, 1
